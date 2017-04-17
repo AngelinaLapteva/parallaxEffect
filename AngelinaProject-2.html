@@ -1,0 +1,219 @@
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Depth</title>
+</head>
+<body>
+	<style>
+	html{
+	height: 2080px;
+	}
+	body{
+		box-sizing: border-box;
+		margin: 0;
+	}
+
+	.stage {
+		position: fixed;
+		height: 100%;
+		width:100%;
+	}
+	.level4 {
+		position: absolute;
+		width: 100%;
+		top:0;
+		left: 0;
+		z-index: 1;
+		background-image: url('level4.png');
+		background-size: cover;
+		display: block;
+		color:red;
+		transition:all 800ms ease-out;
+	}
+	.level3 {
+		position: relative;
+		z-index: 3;
+		left: 0px;
+		width: 100%;
+		height: 100px;
+		display: block;
+		background-image: url('level3.png');
+		background-size: cover;
+		transition:all 800ms cubic-bezier(0, 0, 0.36, 1.14);
+	}
+	.level2 {
+		position: relative;
+		z-index: 5;
+		/*left: 100px;*/
+		width: 100%;
+		height: 200px;
+		display: block;
+		background-image: url('level2.png');
+		background-size: cover;
+		transition:all 1000ms cubic-bezier(0, 0, 0.36, 1.14);
+	}
+	.level1 {
+		position: relative;
+		z-index: 7;
+		/*left: 0;*/
+		width: 100%;
+		height: 800px;
+		display: block;
+		background-image: url('level1.png');
+		background-size: cover;
+		transition:all 1000ms cubic-bezier(0, 0, 0.36, 1.14);
+	}
+	.moon {
+		position: absolute;
+		z-index: 9;
+		left: 50%;
+		border-radius: 50%;
+		top: 100px;
+		width: 50px;
+		height: 50px;	
+		box-shadow: 0px 0px 0px 0px white;
+	/*	background-color: white;*/
+		display: block;
+		background-image: url('Full-Moon-PNG.png');
+		background-size: cover;
+		transition:all 1000ms cubic-bezier(0, 0, 0.36, 1.14);
+	}
+	.canv {
+		position: relative;
+		top: 0;
+		left: 0;
+		z-index: 11;
+		width: 100%;
+
+	
+}
+	.transition {
+    -webkit-transform: scale(1.3); 
+    -moz-transform: scale(1.3);
+    -o-transform: scale(1.3);
+    transform: scale(1.3);
+}
+	</style>
+
+	<div class="stage">
+		<div class="level4"></div>
+		<div class="level3"></div>
+		<div class="level2"></div>
+		<div class="level1"></div>
+		<div class="moon"></div>
+		
+		
+
+
+	</div>
+<script type="text/javascript" src="wheelzoom.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	
+	<script>
+
+	
+	$(function() {
+ 	var windowHeight= window.innerHeight;
+ 	var windowWidth=window.innerWidth;
+ 	
+ 	var level1Position = windowHeight*0.01;
+ 	var level1PositionL=windowWidth-windowWidth*1.1;
+
+ 	var level2Position = windowHeight*0.53;
+ 	var level2PositionR=windowWidth*0.1;
+
+ 	var level3Position = windowHeight*0.66;
+ 	var level4Height = windowHeight;
+ 	
+ 	$('.level1').css('top',`${level1Position}px`);
+ 	$('.level1').css('left',`${level1PositionL}px`);
+ 	
+
+ 	$('.level2').css('top',`${level2Position}px`);
+	$('.level2').css('left',`${level2PositionR}px`);
+
+	$('.level3').css('top',`${level3Position}px`);
+	$('.level4').css('height',`${level4Height}px`);
+	
+	$(window).on('scroll', myFunction);
+	$(window).on('resize', myFunction2)
+	});
+
+function myFunction2(){
+
+	var windowHeight= window.innerHeight;
+ 	var windowWidth=window.innerWidth;
+ 	
+ 	var level1Position = windowHeight*0.01;
+ 	var level1PositionL=windowWidth-windowWidth*1.1;
+
+ 	var level2Position = windowHeight*0.53;
+ 	var level2PositionR=windowWidth*0.1;
+
+ 	var level3Position = windowHeight*0.66;
+ 	var level4Height = windowHeight;
+ 	
+ 	$('.level1').css('top',`${level1Position}px`);
+ 	$('.level1').css('left',`${level1PositionL}px`);
+ 	
+
+ 	$('.level2').css('top',`${level2Position}px`);
+	$('.level2').css('left',`${level2PositionR}px`);
+
+	$('.level3').css('top',`${level3Position}px`);
+	$('.level4').css('height',`${level4Height}px`);
+	
+	// $(window).on('scroll', myFunction);
+	// $(window).on('resize', myFunction2)
+};
+	
+
+
+	function myFunction() {
+
+	var x = document.body.scrollTop;
+	var y = window.innerHeight;
+	var f=window.innerWidth;
+
+		var downLevel1=(y+x)/60;
+		var leftLevel1=40+(y+x)/10;
+		var zoomLevel=1+x/(x+500);
+	
+		var downLevel2=320+(y+x)/90;
+		var leftLevel2=85+(y+x)/100;
+		var zoomLevel2=1+x/(x+1100);
+
+
+		var downLevel3=y*0.7 + (y+x)/700;
+		var zoomLevel3=1+x/(x+2000);
+		
+		var speedLevel4=(x/9000);
+		var zoomVar=x*0.01;
+
+
+
+		$('.level1').css('top',`${downLevel1}px`);
+		$('.level1').css('left',`${-leftLevel1}px`);
+		$('.level1').css('transform',`scale(${zoomLevel})`);
+
+		$('.level2').css('top',`${downLevel2}px`);
+		$('.level2').css('left',`${leftLevel2}px`);
+		$('.level2').css('transform',`scale(${zoomLevel2})`);
+
+		$('.level3').css('top',`${downLevel3}px`);
+		$('.level3').css('transform',`scale(${zoomLevel3})`);
+		
+		$('.level4').css('transform',`scale(${zoomLevel})`);
+
+		$('.moon').css('display', 'block');
+		$('.moon').css('box-shadow', `0px 0px ${zoomVar}px ${zoomVar}px rgba(255,255,255, 0.3)`)
+
+
+	};
+	
+	
+	</script>
+	
+</body>
+</html>
+	
